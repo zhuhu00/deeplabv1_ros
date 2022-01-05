@@ -1,0 +1,17 @@
+<launch>
+
+  <arg name="deeplab_ros_node_params" default="$(find deeplabv1_ros)/config/freiburg_rgbd.yaml"/>
+  <node name="deeplabv1_ros_node" pkg="deeplabv1_ros" type="deeplabv1_ros_node.py" output="screen">
+    <rosparam file="$(arg deeplab_ros_node_params)" command="load" />
+  </node>
+
+  <param name="models_files" type='string' value="$(find deeplabv1_ros)/weights"/>
+
+  <node name="bag" pkg="rosbag" type="play"
+  args="-l       /media/roma/Huge/00-SLAM_DataSets/TUM/TestingDebugging/rgbd_dataset_freiburg1_rpy.bag" />
+      <!-- args="-l $(find deeplabv1_ros)/bags/rgbd_dataset_freiburg3_long_office_household.bag" /> -->
+      
+      
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find deeplabv1_ros)/rviz/deeplabv1_ros.rviz" />
+</launch>

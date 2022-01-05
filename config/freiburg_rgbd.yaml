@@ -1,0 +1,8 @@
+rgb_input: "/camera/rgb/image_color"
+model: "mobilenetv2_coco_voctrainaug"
+# ==============4 model to inference==============
+# 1. mobilenetv2_coco_voctrainaug
+# 2. mobilenetv2_coco_voctrainval
+# 3. xception_coco_voctrainaug
+# 4. xception_coco_voctrainval
+visualize: true
