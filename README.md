@@ -3,6 +3,9 @@ Deeplab segmantic ROS wrapper, ROS中使用DeepLab模型。有关DeepLab的信�
 
 推理部分的代码主要参考的是这里：[Colab notebook](https://colab.sandbox.google.com/github/tensorflow/models/blob/master/research/deeplab/deeplab_demo.ipynb).
 
+# 模型文件解释
+`tar.gz`压缩包内包含有3个文件：pb文件是实际测试的模型，`ckpt`和`index`是预训练模型。主要看[models](https://github.com/tensorflow/models/blob/master/research/deeplab/g3doc/model_zoo.md)
+
 # How to build
 根据下面的步骤进行安装，需要注意以下部分需要安装`catkin_simple`的包才能够编译成功。
 
