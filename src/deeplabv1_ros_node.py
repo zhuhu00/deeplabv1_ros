@@ -1,5 +1,6 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import os
+import sys
 import tempfile
 import threading
 from six.moves import urllib
@@ -16,6 +17,8 @@ from sensor_msgs.msg import Image
 
 # from deeplabv1_ros import deeplab
 import deeplab
+
+print(sys.version,"======")
 
 class DeepLabNode(object):
     def __init__(self):

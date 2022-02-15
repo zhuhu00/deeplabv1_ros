@@ -1,6 +1,6 @@
 # deeplabv1_ros 
 Deeplab segmantic ROS wrapper, ROS中使用DeepLab模型。有关DeepLab的信息在这个[网站](https://github.com/tensorflow/models/tree/master/research/deeplab)可以看到.
-
+![20220215144053](https://raw.githubusercontent.com/zhuhu00/img/master/20220215144053.png)
 推理部分的代码主要参考的是这里：[Colab notebook](https://colab.sandbox.google.com/github/tensorflow/models/blob/master/research/deeplab/deeplab_demo.ipynb).
 
 # 模型文件解释
@@ -9,7 +9,7 @@ Deeplab segmantic ROS wrapper, ROS中使用DeepLab模型。有关DeepLab的信�
 # How to build
 根据下面的步骤进行安装，需要注意以下部分需要安装`catkin_simple`的包才能够编译成功。
 
-此外，代码中使用的是python2，tensorflow进行推理的，这里需要安装对应python2的版本，可能出现的错误：
+此外，代码中使用的是python2，tensorflow(1.15.2)进行推理的，这里需要安装对应python2的版本，可能出现的错误：
 
 ![20220105164942](https://raw.githubusercontent.com/zhuhu00/img/master/20220105164942.png)
 解决办法是重新安装protobuf：
