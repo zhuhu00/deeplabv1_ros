@@ -10,3 +10,4 @@ __pycache__/
 weights/deeplab_model/deeplabv3_mnv2_pascal_train_aug/frozen_inference_graph.pb
 weights/deeplab_model/deeplabv3_mnv2_pascal_train_aug/model.ckpt-30000.data-00000-of-00001
 weights/deeplab_model/deeplabv3_mnv2_pascal_train_aug/model.ckpt-30000.index
+.vscode/

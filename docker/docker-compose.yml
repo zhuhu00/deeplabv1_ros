@@ -1,0 +1,28 @@
+# Huge, MEE SUSTech
+# Email: zhuhu00@foxmail.com
+
+version: '2.3'
+services:
+  deepv1-ros:
+    image: zhuhu/deepv1-ros:0.1
+    build: .
+
+    command: lxterminal
+    runtime: nvidia
+    privileged: true
+    stdin_open: true
+    tty: true
+    environment:
+        - DISPLAY
+        - QT_X11_NO_MITSHM=1
+
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ../../deeplabv1_ros:/root/catkin_ws/src/deeplab_ros
+      - ${DATASET_DIR}:/root/Dataset
+
+    entrypoint: /ros_entrypoint.sh
+    network_mode: host
+
+volumes:
+  deepv1-ros:

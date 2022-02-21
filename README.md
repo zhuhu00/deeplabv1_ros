@@ -17,6 +17,9 @@ Deeplab segmantic ROS wrapper, ROS中使用DeepLab模型。有关DeepLab的信�
 pip install protobuf==3.17.3
 ```
 
+# 如何在python3中使用ROS
+解决ROS中使用python3的办法是自己构建一个`python3`的`ros`的`cv2_to_imgmsg`和`imgmsg_to_cv2`
+
 ## Getting started
 Clone this repository to the `src` folder of your catkin workspace, build your workspace and source it.
 

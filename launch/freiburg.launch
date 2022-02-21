@@ -8,7 +8,7 @@
   <param name="models_files" type='string' value="$(find deeplabv1_ros)/weights"/>
 
   <node name="bag" pkg="rosbag" type="play"
-  args="-l       /media/roma/Huge/00-SLAM_DataSets/TUM/TestingDebugging/rgbd_dataset_freiburg1_rpy.bag" />
+  args="-l /root/Dataset/rgbd_dataset_freiburg1_xyz.bag" />
       <!-- args="-l $(find deeplabv1_ros)/bags/rgbd_dataset_freiburg3_long_office_household.bag" /> -->
       
       

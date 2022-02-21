@@ -84,21 +84,24 @@ class DeepLabNode(object):
                 continue
 
             if msg is not None:
-                rgb_image = self._cv_bridge.imgmsg_to_cv2(msg, "passthrough")
+                # rgb_image = self._cv_bridge.imgmsg_to_cv2(msg, "passthrough") # 这里有错误,会导向python2
+                rgb_image = self.imgmsg_to_cv2(msg)
+
 
                 # Run detection.
                 seg_map = self.detect(rgb_image)
 
                 rospy.logdebug("Publishing semantic labels.")
                 # rospy.loginfo("Publishing semantic labels.")
-                label_msg = self._cv_bridge.cv2_to_imgmsg(seg_map, 'mono16')
+                # label_msg = self._cv_bridge.cv2_to_imgmsg(seg_map, 'mono16')
+                label_msg = self.cv2_to_imgmsg(seg_map)
                 label_msg.header = msg.header
                 self.label_pub.publish(label_msg)
 
                 if self._visualize:
                     # Overlay segmentation on RGB image.
                     image = self.visualize(rgb_image, seg_map)
-                    label_color_msg = self._cv_bridge.cv2_to_imgmsg(image, 'bgr8')
+                    label_color_msg = self.cv2_to_imgmsg(image)
                     label_color_msg.header = msg.header
                     self.vis_pub.publish(label_color_msg)
 
@@ -128,6 +131,31 @@ class DeepLabNode(object):
             self._last_msg = msg
             self._msg_lock.release()
 
+
+    def cv2_to_imgmsg(self, cv_image):
+        img_msg = Image()
+        img_msg.height = cv_image.shape[0]
+        img_msg.width = cv_image.shape[1]
+        img_msg.encoding = "bgr8"
+        img_msg.is_bigendian = 0
+        img_msg.data = cv_image.tobytes()
+        img_msg.step = len(img_msg.data) // img_msg.height # That double line is actually integer division, not a comment
+        return img_msg
+    
+
+    def imgmsg_to_cv2(self, img_msg):
+        if img_msg.encoding != "rgb8":
+            rospy.logwarn_once("This Coral detect node has been hardcoded to the 'bgr8' encoding.  Come change the code if you're actually trying to implement a new camera")
+        dtype = np.dtype("uint8") # Hardcode to 8 bits...
+        dtype = dtype.newbyteorder('>' if img_msg.is_bigendian else '<')
+        image_opencv = np.ndarray(shape=(img_msg.height, img_msg.width, 3), # and three channels of data. Since OpenCV works with bgr natively, we don't need to reorder the channels.
+                        dtype=dtype, buffer=img_msg.data)
+        # If the byt order is different between the message and the system.
+        if img_msg.is_bigendian == (sys.byteorder == 'little'):
+            image_opencv = image_opencv.byteswap().newbyteorder()
+        image_reverse = np.flip(image_opencv, axis=2)
+
+        return image_reverse
 
 def main():
     rospy.init_node('deeplabv1_ros_node')
